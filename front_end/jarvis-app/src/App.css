@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.App-header {
+  height: 10%;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Components{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+
+}
+

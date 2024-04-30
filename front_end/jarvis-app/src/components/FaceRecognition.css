@@ -1,0 +1,113 @@
+.FC_Component {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+  justify-content: space-between;
+  
+  background-color: aqua;
+  width: 50%;
+  height: 100%;
+}
+
+.FC_Video_Component{
+  border-radius: 10px;
+  width: 45%;
+  height: 100%;
+}
+
+video {
+  background-color: black;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.FC_Buttons_1{
+  
+  display: flex;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  height: 20%;
+  justify-content: space-between;
+}
+
+.FC_Image_Container {
+  border-radius: 10px;
+  width: 45%;
+  height: 100%;
+}
+
+.FC_Image_Component {
+
+  background-color: black;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 3px;
+}
+
+img{  
+  width: 100%;
+  height: 200px;
+  object-fit:contain;
+
+  border-radius: 10px;
+}
+
+.FC_Buttons_2{
+  display: flex;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  height: 20%;
+  justify-content: space-between;
+}
+
+.FC_Response {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+}
+
+button{
+  height: 100%;
+  border-radius: 10px;
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border-radius: 10px;
+  background-color: white;
+  border: 2px solid black;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  color: black;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.FC_Container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+
+  width: 100%;
+  
+}
