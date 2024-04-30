@@ -6,7 +6,11 @@ from werkzeug.utils import secure_filename
 import os
 import subprocess
 import boto3
-import base64
+
+#Para los modelos 
+import pickle
+import pandas as pd
+from statsmodels.tsa.arima_model import SARIMAX
 
 
 app = Flask(__name__)
@@ -69,16 +73,12 @@ class FaceRecognition(Resource):
     
 
     def __init__(self):
-      self.subscription_key = '3dc7801613864bc8b6ec0d52101ec4d0'
-      self.endpoint = 'https://proyectoai.cognitiveservices.azure.com/'
-
 
     def post(self):
      
         try:
             file = request.files.getlist('image')[0]
             
-
             filename = secure_filename(file.filename)
 
             directory = './img'
@@ -109,15 +109,17 @@ class FaceRecognition(Resource):
             for emotion in faceDetail['Emotions']:
                 emotions.append({emotion['Type']: emotion['Confidence']})
                 print(f"{emotion['Type']}: {emotion['Confidence']:.2f}%")
-
-        # emotions = [{'Type': 'HAPPY', 'Confidence': 99.99}, {'Type': 'SAD', 'Confidence': 0.01}]
         return {'message': emotions }, 200
 
+#Modelo para predecir el precio del bitcoin en una fecha 
+class BitcoinPricePredictor(Resource):
+    def get(self):
+        return {'hello': 'world'}
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(VoiceChat, '/voiceChat')
 api.add_resource(FaceRecognition, '/faceRecognition')
 
-
+#Modelos 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
