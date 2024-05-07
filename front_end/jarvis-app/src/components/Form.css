@@ -9,6 +9,7 @@
 }
 
 .form-container {
+
     position: fixed;
     top: 50%;
     left: 50%;
@@ -18,6 +19,11 @@
     z-index: 1001;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    
+    max-height: 80vh;
+    overflow-y: auto;
+
 }
 
 
@@ -26,4 +32,10 @@
     flex-direction: column;
     margin-bottom: 10px;
     gap: 10px;
+}
+
+.input-container-element {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }

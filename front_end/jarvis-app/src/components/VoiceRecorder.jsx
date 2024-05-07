@@ -128,8 +128,8 @@ const  VoiceRecorder = (props) =>  {
 
     return (
         <div>
-            <h1>Press and hold spacebar to record</h1>
-            {isRecording && <p>Recording...</p>}
+            <h4>Presione y Mantenga la Barra Espaciadora Para Grabar</h4>
+            {/* {isRecording && <p>Recording...</p>} */}
         </div>
     );
 }

@@ -20,18 +20,24 @@ const VoiceChat = () => {
 
 	useEffect(() => {
 		setWaitingAnswer(false)
+		setAnswer("")
+		setFormFields([])
+		setEndPoint("")
+		setShowForm(false)
 
 		if (text !== "") {
 			let instruction = getInstruction(text)
 
-			console.log(instruction)
+			if (instruction === "No se encontró instrucción") {
+				setAnswer("No se encontró instrucción")
+				return
+			}
 
 			let fields = getFormFields(instruction)
 			let endpoint = getEndPoint(instruction)
 
 			setFormFields(fields)
 			setEndPoint(endpoint)
-
 			setShowForm(true)
 	
 		}
@@ -41,7 +47,7 @@ const VoiceChat = () => {
 		switch (instruction) {
 			case "bitcoin":
 				return "/prediccionBitcoin"
-			case "apple":
+			case "acciones":
 				return "/prediccionStockApple"
 			case "venta":
 				return "/prediccionVentasTienda"
@@ -68,7 +74,7 @@ const VoiceChat = () => {
 		switch (instruction) {
 			case "bitcoin":
 				return ["Dias"]
-			case "apple":
+			case "acciones":
 				return ["Dias"]
 			case "venta":
 				return ["Dias"]
@@ -156,10 +162,11 @@ const VoiceChat = () => {
 
 	const getInstruction = userText => {
 		userText = userText.toLowerCase()
+		console.log("Get instruction - User Text:", userText);
 
 		let instructions = [
 			"bitcoin",
-			"apple",
+			"acciones",
 			"venta",
 			"vino",
 			"cardiovascular",
@@ -181,8 +188,6 @@ const VoiceChat = () => {
 
 	return (
 		<div className="VC_Main_Component">
-			<h2>Voice Chat</h2>
-
 			{/* <button onClick={() => setShowForm(true)}>Show Form</button> */}
 
 			<VoiceRecorder setText={setText} setIsRecording={setIsRecording} setLoading={setWaitingAnswer} />
@@ -190,12 +195,12 @@ const VoiceChat = () => {
 			<div className="VC_Screens">
 				<div className="VC_SPINNER_CONTAINER">
 					{isRecording ? (
-						<BeatLoader color={"#000000"} loading={true} size={150} aria-label="Loading Spinner" data-testid="loader" />
+						<BeatLoader color={"#F16EF1"} loading={true} size={150} aria-label="Loading Spinner" data-testid="loader" />
 					) : waitingAnswer ? (
-						<RingLoader color={"#000000"} loading={true} size={150} aria-label="Loading Spinner" data-testid="loader" />
+						<RingLoader color={"#F16EF1"} loading={true} size={150} aria-label="Loading Spinner" data-testid="loader" />
 					) : (
 						<CircleLoader
-							color={"#000000"}
+							color={"#F16EF1"}
 							loading={true}
 							size={150}
 							aria-label="Loading Spinner"
@@ -205,7 +210,7 @@ const VoiceChat = () => {
 				</div>
 
 				<div className="VC_Screen">
-					<h3>Su mensaje</h3>
+					<h3>Petición</h3>
 					{text}
 				</div>
 
@@ -215,7 +220,7 @@ const VoiceChat = () => {
 				</div>
 			</div>
 
-			{showForm && <Form showForm={showForm} setShowForm={setShowForm} data={formFields} endpoint={endPoint} />}
+			{showForm && <Form showForm={showForm} setShowForm={setShowForm} data={formFields} endpoint={endPoint} setAnswer={setAnswer} waitingAnswer={setWaitingAnswer} />}
 		</div>
 	)
 }

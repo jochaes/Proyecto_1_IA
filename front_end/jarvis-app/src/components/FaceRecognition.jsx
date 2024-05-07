@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from "react"
 
 import "./FaceRecognition.css"
+import RingLoader from "react-spinners/RingLoader"
+
 const FaceRecognition = () => {
 	const API_URL = process.env.REACT_APP_API_URL
 	const videoRef = useRef(null)
 	const [imageData, setImageData] = useState(null)
 	const [response, setResponse] = useState("")
+	const [loading, setLoading] = useState(false)
 
 	// useEffect(() => {
 	// 	startCamera();
@@ -51,6 +54,7 @@ const FaceRecognition = () => {
 	}
 
 	const handleSendImage = async () => {
+		setLoading(true)
 
 		try {
 			const formData = new FormData()
@@ -74,23 +78,24 @@ const FaceRecognition = () => {
 
 
 				setResponse(responseString)
+				setLoading(false)
 			})
 		} catch (error) {
+			setLoading(false)
 			console.error("Error sending image:", error)
 		}
 	}
 
 	return (
 		<div className="FC_Component">
-			<h1>Face Recognition</h1>
-
+			<h4>Reconocimiento de Sentimientos</h4>
 			<div className="FC_Container">
 				<div className="FC_Video_Component">
 					<video ref={videoRef} autoPlay playsInline style={{ width: "100%", maxWidth: "500px" }} />
 					<div className="FC_Buttons_1">
-						<button onClick={handleTakePicture}>Take Picture</button>
-						<button onClick={stopCamera}>Stop Camera</button>
-						<button onClick={startCamera}>Start Camera</button>
+						<button onClick={handleTakePicture}>Tomar Fotografía</button>
+						<button onClick={stopCamera}>Detener</button>
+						<button onClick={startCamera}>Iniciar</button>
 					</div>
 				</div>
 
@@ -104,12 +109,13 @@ const FaceRecognition = () => {
 							Buscar Imágen
 						</label>
 						<input id="file-upload" type="file" accept="image/*" onChange={handleFileInputChange} />
-						<button onClick={handleSendImage}>Send Image</button>
+						<button onClick={handleSendImage}>Enviar</button>
 					</div>
 				</div>
 			</div>
 
 			<div className="FC_Response">
+				{loading && <RingLoader color={"#BA00BA"} loading={true} size={150} aria-label="Loading Spinner" data-testid="loader" />}
 				<p>{response}</p>
 			</div>
 		</div>

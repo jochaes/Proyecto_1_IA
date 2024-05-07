@@ -3,9 +3,10 @@
   align-items: center;
   flex-direction: column;
   
-  justify-content: space-between;
+  gap: 30px;
   
-  background-color: aqua;
+  
+  /* background-color: #339989; */
   width: 50%;
   height: 100%;
 }
@@ -26,7 +27,6 @@ video {
 .FC_Buttons_1{
   
   display: flex;
-  background-color: red;
   color: white;
   font-size: 20px;
   border-radius: 10px;
@@ -42,7 +42,8 @@ video {
 
 .FC_Image_Component {
 
-  background-color: black;
+  background-color: #CFF1E4;
+  border: black 2px solid;
   border-radius: 10px;
   width: 100%;
   height: 100%;
@@ -51,15 +52,13 @@ video {
 
 img{  
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit:contain;
-
   border-radius: 10px;
 }
 
 .FC_Buttons_2{
   display: flex;
-  background-color: red;
   color: white;
   font-size: 20px;
   border-radius: 10px;
@@ -68,9 +67,14 @@ img{
 }
 
 .FC_Response {
-  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  margin-top: 30px;
+
   color: black;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
   width: 100%;
   height: 20%;
@@ -106,7 +110,6 @@ input[type="file"] {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
 
   width: 100%;
   
