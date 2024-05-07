@@ -8,27 +8,29 @@ const  VoiceRecorder = (props) =>  {
     const [isRecording, setIsRecording] = useState(false);
 
     useEffect(() => {
-        // Check for MediaRecorder support
+
+        // Revisa si el navegador soporta MediaRecorder
         if (!window.MediaRecorder) {
-            alert('MediaRecorder not supported on this browser.');
+            alert('MediaRecorder no está soportado en el navegador.');
             return;
         }
 
-        // Request permissions and create recorder
+        // Pide permiso para acceder al microfono
         async function prepareRecorder() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const mediaRecorder = new MediaRecorder(stream);
                 setRecorder(mediaRecorder);
             } catch (error) {
-                console.error('Error accessing microphone', error);
-                alert('Error accessing microphone');
+                console.error('Error accediento al microfono', error);
+                alert('Error accediento al microfono');
             }
         }
 
+        //Prepara el recorder
         prepareRecorder();
 
-        // Cleanup on component unmount
+        // Limpiar el stream del recorder
         return () => {
             if (recorder) {
                 recorder.stream.getTracks().forEach(track => track.stop());
@@ -40,40 +42,48 @@ const  VoiceRecorder = (props) =>  {
     useEffect(() => {
         if (!recorder) return;
 
+        //Limpia el texto del usuario
+        props.setText("")
+
         let chunks = [];
 
+        //Cuando se recibe data del recorder
         recorder.ondataavailable = e => {
             chunks.push(e.data);
         };
 
+        //Cuando se detiene el recorder
         recorder.onstop = async() => {
 
-            console.log(recorder.mimeType);
+            
+            
             const blob = new Blob(chunks, { type: 'webm/opus' });
             chunks = [];
-            // const audioURL = URL.createObjectURL(blob);
+            
 
-            //Store audio file in ./audio without document 
+            //Crea un archivo de audio con el blob
             const audioFile = new File([blob], 'recording.ogg', { type: 'webm/opus' });
 
-            //save audioFile in ./audio
+            //Crea un formData y le agrega el archivo de audio
             const formData = new FormData();
 
+            //Agrega el archivo de audio al formData
             formData.append('voiceNote', audioFile);
             
+            //Muestra el loading
             props.setLoading(true)
 
+            //Envia el formData al servidor
             const t = await fetch(`${API_URL}/voiceChat`, {
                 method: 'POST',
                 body: formData
             });
 
             
-            //Convert t to json and extract text
+            //Convierte la respuesta a JSON y la guarda en el estado text
             const json = await t.json();
             props.setText(json.transcription)
             props.setLoading(false)
-            
             console.log(t);
 
         };
@@ -95,12 +105,14 @@ const  VoiceRecorder = (props) =>  {
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.code === "Space" && !isRecording) {
+                props.setIsRecording(true);
                 setIsRecording(true);
             }
         };
 
         const handleKeyUp = (event) => {
             if (event.code === "Space" && isRecording) {
+                props.setIsRecording(false);
                 setIsRecording(false);
             }
         };

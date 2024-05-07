@@ -4,3 +4,10 @@
   height: 100%;
   
 }
+
+.VC_SPINNER_CONTAINER{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
